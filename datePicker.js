@@ -1,13 +1,11 @@
 ﻿/**
- * @homepage https://github.com/LACERBA
+ * @homepage https://github.com/LACERBA/DatePicker.Core
  * (c) 2014, Charles Huang. 
  *
  * 调用方法：
  * var arr = DatePicker.createDayArr(2014,12);
  * 返回基于二维数组(7列6行)的日历数据
  *
- * 
- * 
  */
 define(function (require, exports, module) {
     var DatePicker = {};
