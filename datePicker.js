@@ -41,18 +41,15 @@ var DayModel = function (year, month, week, day, isTody, isCheck, isCurrSelect) 
  * @return {[type]} [description]
  */
 DayModel.prototype.getDate = function () {
-    return LADatePicker.newDate(this.year, this.month, this.day);
+    return new Date(this.year + '-' + this.month + '-' + this.day);
 };
 
 /**
- * [newDate 创建一个时间]
- * @param  {[type]} year  [description]
- * @param  {[type]} month [description]
- * @param  {[type]} day   [description]
- * @return {[type]}       [description]
+ * [isBeforeToday 是否是今天之前的时间]
+ * @return {Boolean} [description]
  */
-LADatePicker.newDate = function (year, month, day) {
-    return new Date(Date.parse((year + '-' + month + '-' + day).replace(/-/g, "/")));
+DayModel.prototype.isBeforeToday = function () {
+    return this.getDate() < new Date();
 };
 
 /**
@@ -182,7 +179,7 @@ LADatePicker.createDayArr = function (year, month) {
         lastDay = LADatePicker.getLastDay(year, month);
 
     //计算第一天开始位置
-    startWeek = LADatePicker.newDate(year, month, 1).getDay();
+    startWeek = new Date(year + '-' + month + '-' + 1).getDay();
 
     for (var i = 0; i < 6; i++) {
         var tmpDays = []; //每行数据
@@ -204,9 +201,8 @@ LADatePicker.createDayArr = function (year, month) {
                 addDay = day++, //添加时间
                 toDay = new Date();
 
-
             //构造单个日期对象
-            tmpDays.push(new DayModel(
+            var obj = new DayModel(
                 year,
                 month,
                 j,
@@ -214,8 +210,9 @@ LADatePicker.createDayArr = function (year, month) {
                 (toDay.getDate() == addDay && (toDay.getMonth() + 1) == month && toDay.getFullYear() == year) ? true : false,
                 0,
                 0
-            ));
+            );
 
+            tmpDays.push(obj);
 
         };
         resultDayArr.push(tmpDays.slice(0));
