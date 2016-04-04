@@ -1,18 +1,18 @@
 
 /**
- * @homepage https://github.com/LACERBA/DatePicker.Core
+ * @homepage https://github.com/LACERBA/LADatePicker.Core
  * (c) 2014, Charles Huang. 
  *
  * 调用方法：
- * var arr = DatePicker.createDayArr(2014,12);
+ * var arr = LADatePicker.createDayArr(2014,12);
  * 返回基于二维数组(7列6行)的日历数据
  *
  */
 
 
-var DatePicker = {};
+var LADatePicker = {};
 
-DatePicker.config = {
+LADatePicker.config = {
     week:['日','一','二','三','四','五','六']
 };
 
@@ -41,7 +41,7 @@ var DayModel = function (year, month, week, day, isTody, isCheck, isCurrSelect) 
  * @return {[type]} [description]
  */
 DayModel.prototype.getDate = function () {
-    return DatePicker.newDate(this.year, this.month, this.day);
+    return LADatePicker.newDate(this.year, this.month, this.day);
 };
 
 /**
@@ -51,7 +51,7 @@ DayModel.prototype.getDate = function () {
  * @param  {[type]} day   [description]
  * @return {[type]}       [description]
  */
-DatePicker.newDate = function (year, month, day) {
+LADatePicker.newDate = function (year, month, day) {
     return new Date(Date.parse((year + '-' + month + '-' + day).replace(/-/g, "/")));
 };
 
@@ -61,7 +61,7 @@ DatePicker.newDate = function (year, month, day) {
  * @param  {[type]} month [description]
  * @return {[type]}       [description]
  */
-DatePicker.getLastDay = function (year, month) {
+LADatePicker.getLastDay = function (year, month) {
     var new_year = year; //取当前的年份
     var new_month = month++; //取下一个月的第一天，方便计算（最后一天不固定）
     if (month > 12) //如果当前大于12月，则年份转到下一年
@@ -83,7 +83,7 @@ DatePicker.getLastDay = function (year, month) {
   *   var   newDate   =   DateAdd( "d ",5,now); 
   *---------------   DateAdd(interval,number,date)   ----------------- 
   */  
-DatePicker.dateAdd = function  (interval,number,date)  
+LADatePicker.dateAdd = function  (interval,number,date)  
 {  
 
 // var   now   =   new   Date();  
@@ -152,7 +152,7 @@ DatePicker.dateAdd = function  (interval,number,date)
  * @param  {[type]} item [description]
  * @return {[type]}      [description]
  */
-DatePicker.clearCheck = function(dayList){
+LADatePicker.clearCheck = function(dayList){
     for (var i = 0; i < dayList.length; i++) {
         for (var j = 0; j < dayList[i].length; j++) {
             dayList[i][j].isCheck = false;
@@ -164,7 +164,7 @@ DatePicker.clearCheck = function(dayList){
  * [init 初始化入口]
  * @return {[type]} [description]
  */
-DatePicker.init = function () {
+LADatePicker.init = function () {
 
 };
 
@@ -174,15 +174,15 @@ DatePicker.init = function () {
  * @param  {[type]} month [description]
  * @return {[type]}       [description]
  */
-DatePicker.createDayArr = function (year, month) {
+LADatePicker.createDayArr = function (year, month) {
     var resultDayArr = [];
     //7*6时间组合
     var day = 1, //时间增量
         startWeek = 0, //0（周日） 到 6（周六）
-        lastDay = DatePicker.getLastDay(year, month);
+        lastDay = LADatePicker.getLastDay(year, month);
 
     //计算第一天开始位置
-    startWeek = DatePicker.newDate(year, month, 1).getDay();
+    startWeek = LADatePicker.newDate(year, month, 1).getDay();
 
     for (var i = 0; i < 6; i++) {
         var tmpDays = []; //每行数据
