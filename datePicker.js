@@ -144,8 +144,24 @@ LADatePicker.dateAdd = function  (interval,number,date)
     }  
 };  
 
+
 /**
- * [clearSelectDate 清除选中d时间状态]
+ * [GetDayDiff 获取天数时间差，比如剩余天数]
+ * @param {[type]} start [description]
+ * @param {[type]} end   [description]
+ */
+LADatePicker.GetDayDiff = function(start,end){
+    start = new Date(start);  //开始时间  
+    end = new Date(end);    //结束时间  
+    var diff = start.getTime() - end.getTime();  //时间差的毫秒数  
+      
+    //计算出相差天数  
+    var days=Math.floor(diff/(24*3600*1000));
+    return days;
+};
+
+/**
+ * [clearSelectDate 清除选中时间状态]
  * @param  {[type]} item [description]
  * @return {[type]}      [description]
  */
