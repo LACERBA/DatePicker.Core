@@ -236,3 +236,81 @@ LADatePicker.createDayArr = function (year, month) {
 
     return resultDayArr;
 };
+
+/*
+一个vue的干净例子
+
+ <div class="wrapAppointment" id="wrapAppointment">
+
+
+        <div class="wrapDatePick">
+            <div class="wrapSelectYearAndMonth row">
+                <div class="">
+                    &lt;
+                </div>
+                <div class="txtCenter">
+                    <span>{{year}}年{{month}}月</span>
+                </div>
+                <div class="">
+                    &gt;
+                </div>
+
+            </div>
+            <div class="">
+                <div class="col" v-for="w in week" v-text="w">
+                </div>
+            </div>
+            <div class="wrapDayList txtCenter">
+                <div class="row" v-for="wd in dayList">
+                    <div class="col" v-for="day in wd">
+                        <span v-text="day.day">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapTimeList list">
+            <div class="item row" v-for="times in timeList">
+                <div class="col" v-for="time in times">
+                    <label>
+                        <input v-if="time.isBookAble" disabled type="checkbox">
+                        <input v-if="!time.isBookAble" type="checkbox"
+                                v-model="time.checked" v-cloak>
+                        {{time.time}}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+ <script type="text/javascript">
+        var vm = new Vue({
+            el: '#wrapAppointment',
+            data: {
+                week: LADatePicker.config.week,
+                year: new Date().getFullYear(),//当前选择的年份
+                month: new Date().getMonth() + 1,//当前选择的月份
+                dayList: null,//当前的日期数组
+                timeList:null//当前的可选时间数组
+            },
+            methods: {
+
+            }
+        });
+
+        function init() {
+            vm.dayList = LADatePicker.createDayArr(vm.year, vm.month);
+        }
+
+        $(function () {
+            init();
+        });
+
+    </script>
+
+
+*/
+
