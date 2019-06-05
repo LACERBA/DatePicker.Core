@@ -245,13 +245,13 @@ LADatePicker.createDayArr = function (year, month) {
 
         <div class="wrapDatePick">
             <div class="wrapSelectYearAndMonth row">
-                <div class="">
+                <div class="" @click="toPreMonth()">
                     &lt;
                 </div>
                 <div class="txtCenter">
                     <span>{{year}}年{{month}}月</span>
                 </div>
-                <div class="">
+                <div class="" @click="toNextMonth()">
                     &gt;
                 </div>
 
@@ -290,20 +290,47 @@ LADatePicker.createDayArr = function (year, month) {
         var vm = new Vue({
             el: '#wrapAppointment',
             data: {
+                pickerDate: new Date(),//当前的日历时间对象
                 week: LADatePicker.config.week,
                 year: new Date().getFullYear(),//当前选择的年份
                 month: new Date().getMonth() + 1,//当前选择的月份
                 dayList: null,//当前的日期数组
-                timeList:null//当前的可选时间数组
+                timeList: null,//当前的可选时间数组
+                hasBeforeToday:false
             },
             methods: {
-
+                toNextMonth: toNextMonth,//到下一月
+                toPreMonth:toPreMonth//到上一月
             }
         });
 
         function init() {
-            vm.dayList = LADatePicker.createDayArr(vm.year, vm.month);
+            flushPicker();
         }
+
+        function toNextMonth() {
+            toMonth(1);
+        }
+
+        function toPreMonth() {
+            if (!vm.hasBeforeToday) {
+                toMonth(-1);
+            }
+        }
+
+        function toMonth(mAdd) {
+            LADatePicker.dateAdd('m', mAdd, vm.pickerDate);
+            flushPicker();
+        }
+
+        function flushPicker() {
+            vm.year = vm.pickerDate.getFullYear();
+            vm.month = vm.pickerDate.getMonth() + 1;
+            vm.dayList = LADatePicker.createDayArr(vm.year, vm.month);
+            vm.hasBeforeToday = LADatePicker.hasBeforeToday(vm.dayList);
+        }
+
+
 
         $(function () {
             init();
